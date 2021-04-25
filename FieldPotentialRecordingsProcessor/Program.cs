@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,7 +14,17 @@ namespace FieldPotentialRecordingsProcessor
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            IHost host = CreateHostBuilder(args).Build();
+            ResetAndSeedDb(host);
+            host.Run();
+        }
+        private async static void ResetAndSeedDb(IHost host)
+        {
+            using (IServiceScope scope = host.Services.CreateScope())
+            {
+                IServiceProvider services = scope.ServiceProvider;
+                await Seed.Initialize(services);
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

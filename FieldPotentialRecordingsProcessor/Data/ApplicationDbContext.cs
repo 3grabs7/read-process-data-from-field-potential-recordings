@@ -14,9 +14,9 @@ namespace FieldPotentialRecordingsProcessor.Data
         {
         }
 
-        DbSet<RecordingSession> RecordingSessions { get; set; }
-        DbSet<RawData> RawDatas { get; set; }
-        DbSet<ProcessedDataSet> ProcessedDataSets { get; set; }
-        DbSet<Rat> Rats { get; set; }
+        public DbSet<RecordingSession> RecordingSessions { get; set; }
+        public DbSet<RawData> RawDatas { get; set; }
+        public DbSet<ProcessedDataSet> ProcessedDataSets { get; set; }
+        public DbSet<Rat> Rats { get; set; }
     }
 }

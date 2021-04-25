@@ -1,4 +1,7 @@
-﻿using FieldPotentialRecordingsProcessor.Models;
+﻿using FieldPotentialRecordingsProcessor.Data;
+using FieldPotentialRecordingsProcessor.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,28 +14,38 @@ namespace FieldPotentialRecordingsProcessor
 {
     static class Seed
     {
-        private static readonly string CSVFolderPath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\", "CSVData");
-        private static string FilePath { get; set; }
+        private static readonly string[] CsvFilePaths = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "CSVData"));
+        private static ApplicationDbContext _context;
 
-        public static void InitializeSeed(string CSVName)
+        public async static Task Initialize(IServiceProvider serviceProvider)
         {
-            FilePath = Path.Combine(CSVFolderPath, CSVName);
-            ParseCSV();
+            // Dependency Injection
+            _context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+
+            await _context.Database.EnsureDeletedAsync();
+            await _context.Database.EnsureCreatedAsync();
+
+            foreach (var filepath in CsvFilePaths)
+            {
+                await ParseCSV(filepath);
+            }
         }
 
-        private static void ParseCSV()
+        private async static Task ParseCSV(string filePath)
         {
-            var readCsv = File.ReadAllLines(FilePath);
             var recordingSession = new RecordingSession()
             {
                 Date = DateTime.Now,
                 Rat = null
             };
-            var rawDataCollection = new List<RawData>();
+            await _context.AddAsync(recordingSession);
+            await _context.SaveChangesAsync();
+
+            var readCsv = File.ReadAllLines(filePath);
             for (int i = 1; i < readCsv.Length; i++)
             {
                 var row = readCsv[i].Split(";");
-                rawDataCollection.Add(new RawData()
+                await _context.AddAsync(new RawData()
                 {
                     Ch1Stim1 = Convert.ToDecimal(row[0]),
                     Ch1Stim2 = Convert.ToDecimal(row[1]),
@@ -43,9 +56,10 @@ namespace FieldPotentialRecordingsProcessor
                     Ch4Stim1 = Convert.ToDecimal(row[6]),
                     Ch4Stim2 = Convert.ToDecimal(row[7]),
                     RecordingSession = recordingSession
-
                 });
+                await _context.SaveChangesAsync();
             }
+
         }
     }
 }

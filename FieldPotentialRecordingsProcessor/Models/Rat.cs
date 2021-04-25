@@ -16,6 +16,7 @@ namespace FieldPotentialRecordingsProcessor.Models
         public string Name { get; set; }
         public decimal Weight { get; set; }
         public Treatment Treatment { get; set; }
+        public int RecordingSessionId { get; set; }
         public RecordingSession RecordingSession { get; set; }
     }
 }
