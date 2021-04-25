@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EdvinsBallaProgram.Models
+namespace FieldPotentialRecordingsProcessor.Models
 {
     public class RawData
     {
