@@ -1,0 +1,79 @@
+﻿@page
+@model FieldPotentialRecordingsProcessor.Pages.RawDatas.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RawData[0].Ch1Stim1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RawData[0].Ch1Stim2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RawData[0].Ch2Stim1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RawData[0].Ch2Stim2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RawData[0].Ch3Stim1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RawData[0].Ch3Stim2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RawData[0].Ch4Stim1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RawData[0].Ch4Stim2)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RawData)
+        {
+            <tr>
+                <td>
+                    @item.Ch1Stim2
+                </td>
+                <td>
+                    @item.Ch1Stim2
+                </td>
+                <td>
+                    @item.Ch2Stim1
+                </td>
+                <td>
+                    @item.Ch2Stim2
+                </td>
+                <td>
+                    @item.Ch3Stim1
+                </td>
+                <td>
+                    @item.Ch3Stim2
+                </td>
+                <td>
+                    @item.Ch4Stim1
+                </td>
+                <td>
+                    @item.Ch4Stim2
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
