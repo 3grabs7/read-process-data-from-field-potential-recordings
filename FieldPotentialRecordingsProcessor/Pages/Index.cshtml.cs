@@ -44,12 +44,13 @@ namespace FieldPotentialRecordingsProcessor.Pages
 
         public async Task OnPostUploadRecordingSessionAsync()
         {
-            var path = Path.Combine(_environment.ContentRootPath, "CSVData", $"{DateTime.Now.ToString("dd/MM/yy")}.csv");
+            var path = Path.Combine(_environment.ContentRootPath, "CSVData", $"{DateTime.Now.ToString("ddd-dd-M-yy-HH-mm-ss")}.csv");
 
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 await Upload.CopyToAsync(fileStream);
             }
+
             await ParseCsv.Parse(SaveChangesAsync, path, Separator);
             await _context.SaveChangesAsync();
         }

@@ -7,19 +7,124 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>RecordingSession</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RecordingSession.Date)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RecordingSession.Date)
-        </dd>
-    </dl>
+<h4>Recordings</h4>
+<hr />
+<div class="row">
+    <div class="col-4">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RecordingSession.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RecordingSession.Date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RecordingSession.Rat)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RecordingSession.Rat)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RecordingSession.ProcessedDataSets)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RecordingSession.ProcessedDataSets)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-8">
+        <div class="card text-center">
+            <div class="card-header">
+                Processed Sets
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Mer info om sets hehe</h5>
+                <div class="list-group">
+                    @foreach (var set in Model.ProcessedDataSets)
+                    {
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Date of set</h5>
+                                <small>Added - Today</small>
+                            </div>
+                            <p class="mb-1">Link to specific dataset</p>
+                            <small>And some small print.</small>
+                        </a>
+                    }
+                    <!-- Mock 'til processed data sets are seeded -->
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Date of set</h5>
+                            <small>Added - Today</small>
+                        </div>
+                        <p class="mb-1">Link to specific dataset</p>
+                        <p class="mb-1">Kanske cool info för att fatta oså</p>
+                        <small>And some small print.</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Date of set</h5>
+                            <small>Added - Today</small>
+                        </div>
+                        <p class="mb-1">Link to specific dataset</p>
+                        <p class="mb-1">Kanske cool info för att fatta oså</p>
+                        <small>And some small print.</small>
+                    </a>
+                    <!-- ========================================== -->
+                </div>
+                <p class="card-text">Additional info osv</p>
+                <a href="#" class="btn btn-primary">Create Set</a>
+            </div>
+            <div class="card-footer text-muted">
+                Last updated - 2 days ago
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" aria-haspopup="true"
+            id="dropdownMenuButton1" data-bs-toggle="dropdown" >
+        Some Actions
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" asp-page="./Edit" asp-route-id="@Model.RecordingSession.Id">Edit</a></li>
+        <li><a class="dropdown-item" href="#">Något annat?</a></li>
+        <li><a class="dropdown-item" href="#">Remove</a></li>
+    </ul>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.RecordingSession.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
+
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.RawDatas.First().TimeInterval)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RawDatas.First().Ch1Stim1)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RawDatas.First().Ch1Stim2)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RawDatas.First().Ch2Stim1)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RawDatas.First().Ch2Stim2)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RawDatas.First().Ch3Stim1)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RawDatas.First().Ch3Stim2)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RawDatas.First().Ch4Stim1)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RawDatas.First().Ch4Stim2)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model.RawDatas)
+        {
+            <tr>
+                <th scope="row">@data.TimeInterval</th>
+                <td>@data.Ch1Stim1</td>
+                <td>@data.Ch1Stim2</td>
+                <td>@data.Ch2Stim1</td>
+                <td>@data.Ch2Stim2</td>
+                <td>@data.Ch3Stim1</td>
+                <td>@data.Ch3Stim2</td>
+                <td>@data.Ch4Stim1</td>
+                <td>@data.Ch4Stim2</td>
+            </tr>
+        }
+    </tbody>
+</table>

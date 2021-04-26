@@ -20,6 +20,8 @@ namespace FieldPotentialRecordingsProcessor.Pages.RecordingSessions
         }
 
         public RecordingSession RecordingSession { get; set; }
+        public IEnumerable<RawData> RawDatas { get; set; }
+        public IEnumerable<ProcessedDataSet> ProcessedDataSets { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -34,6 +36,12 @@ namespace FieldPotentialRecordingsProcessor.Pages.RecordingSessions
             {
                 return NotFound();
             }
+
+            RawDatas = _context.RawDatas
+                .Where(d => d.RecordingSession.Id == id);
+            ProcessedDataSets = _context.ProcessedDataSets
+                .Where(pd => pd.RecordingSession.Id == id);
+
             return Page();
         }
     }
