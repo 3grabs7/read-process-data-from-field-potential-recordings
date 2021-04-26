@@ -33,6 +33,7 @@ namespace FieldPotentialRecordingsProcessor.Models
 
         [Column(TypeName = "decimal(8,7)")]
         public decimal Ch4Stim2 { get; set; }
+        public int TimeInterval { get; set; }
         public RecordingSession RecordingSession { get; set; }
 
     }

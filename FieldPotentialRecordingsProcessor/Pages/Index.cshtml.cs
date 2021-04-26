@@ -45,20 +45,20 @@ namespace FieldPotentialRecordingsProcessor.Pages
         public async Task OnPostUploadRecordingSessionAsync()
         {
             var path = Path.Combine(_environment.ContentRootPath, "CSVData", $"{DateTime.Now.ToShortDateString()}.csv");
-            try
-            {
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await Upload.CopyToAsync(fileStream);
-                }
-                var parser = new ParseCsv(path);
-                parser.Parse(_context);
 
-            }
-            catch
+            using (var fileStream = new FileStream(path, FileMode.Create))
             {
-
+                await Upload.CopyToAsync(fileStream);
             }
+            await ParseCsv.Parse(SaveChangesAsync, path, Separator);
+            await _context.SaveChangesAsync();
         }
+
+        // tim corey use delegate async
+        private async Task SaveChangesAsync(object entity)
+        {
+            await _context.AddAsync(entity);
+        }
+
     }
 }

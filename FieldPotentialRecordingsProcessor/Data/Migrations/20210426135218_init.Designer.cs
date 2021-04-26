@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FieldPotentialRecordingsProcessor.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210425162309_init")]
+    [Migration("20210426135218_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,6 +97,9 @@ namespace FieldPotentialRecordingsProcessor.Data.Migrations
                         .HasColumnType("decimal(8,7)");
 
                     b.Property<int?>("RecordingSessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TimeInterval")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

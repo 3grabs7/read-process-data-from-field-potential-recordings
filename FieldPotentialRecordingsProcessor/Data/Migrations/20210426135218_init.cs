@@ -75,6 +75,7 @@ namespace FieldPotentialRecordingsProcessor.Data.Migrations
                     Ch3Stim2 = table.Column<decimal>(type: "decimal(8,7)", nullable: false),
                     Ch4Stim1 = table.Column<decimal>(type: "decimal(8,7)", nullable: false),
                     Ch4Stim2 = table.Column<decimal>(type: "decimal(8,7)", nullable: false),
+                    TimeInterval = table.Column<int>(type: "int", nullable: false),
                     RecordingSessionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

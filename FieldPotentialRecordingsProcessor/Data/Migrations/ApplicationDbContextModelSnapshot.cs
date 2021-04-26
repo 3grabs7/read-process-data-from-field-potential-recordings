@@ -97,6 +97,9 @@ namespace FieldPotentialRecordingsProcessor.Data.Migrations
                     b.Property<int?>("RecordingSessionId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TimeInterval")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RecordingSessionId");
