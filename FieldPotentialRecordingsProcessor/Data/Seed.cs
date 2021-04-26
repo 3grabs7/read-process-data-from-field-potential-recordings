@@ -41,6 +41,7 @@ namespace FieldPotentialRecordingsProcessor
             await _context.AddAsync(recordingSession);
             await _context.SaveChangesAsync();
 
+            var enumerator = 1;
             var readCsv = File.ReadAllLines(filePath);
             for (int i = 1; i < readCsv.Length; i++)
             {
@@ -55,11 +56,12 @@ namespace FieldPotentialRecordingsProcessor
                     Ch3Stim2 = Convert.ToDecimal(row[5]),
                     Ch4Stim1 = Convert.ToDecimal(row[6]),
                     Ch4Stim2 = Convert.ToDecimal(row[7]),
+                    TimeInterval = enumerator,
                     RecordingSession = recordingSession
                 });
-                await _context.SaveChangesAsync();
+                enumerator++;
             }
-
+            await _context.SaveChangesAsync();
         }
     }
 }

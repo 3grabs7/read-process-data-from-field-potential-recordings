@@ -44,7 +44,7 @@ namespace FieldPotentialRecordingsProcessor.Pages
 
         public async Task OnPostUploadRecordingSessionAsync()
         {
-            var path = Path.Combine(_environment.ContentRootPath, "CSVData", $"{DateTime.Now.ToShortDateString()}.csv");
+            var path = Path.Combine(_environment.ContentRootPath, "CSVData", $"{DateTime.Now.ToString("dd/MM/yy")}.csv");
 
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
