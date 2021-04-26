@@ -58,6 +58,11 @@ namespace FieldPotentialRecordingsProcessor.Pages
         private async Task SaveChangesAsync(object entity)
         {
             await _context.AddAsync(entity);
+            if (entity.GetType() == new RecordingSession().GetType())
+            {
+                await _context.SaveChangesAsync();
+                UploadedRecordingSession = (RecordingSession)entity;
+            }
         }
 
     }
